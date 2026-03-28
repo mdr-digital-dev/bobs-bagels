@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bob's Bagels — Handcrafted in Chicago</title>
+  <meta name="description" content="Bob's Bagels. Handcrafted, kettle-boiled bagels made fresh daily. Order online or find us at the market.">
+  <meta property="og:title" content="Bob's Bagels">
+  <meta property="og:description" content="Handcrafted, kettle-boiled bagels made fresh daily.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #fdf6ec;
+      --warm:    #f5e6ce;
+      --brown:   #3d1f0a;
+      --brown2:  #6b3a1f;
+      --tan:     #c8965a;
+      --tan2:    #e8b87a;
+      --sesame:  #b07d3a;
+      --text:    #2a1205;
+      --muted:   #7a5c3e;
+      --white:   #fffdf9;
+      --radius:  12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ─────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(253, 246, 236, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(61,31,10,0.08);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(61,31,10,0.1); }
+
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 900;
+      color: var(--brown);
+      letter-spacing: -0.01em;
+    }
+    .nav-logo span { color: var(--tan); }
+
+    .nav-links {
+      display: flex; gap: 32px; align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.9rem; font-weight: 500;
+      color: var(--brown2);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--brown); }
+
+    .nav-order {
+      background: var(--brown) !important;
+      color: var(--cream) !important;
+      padding: 9px 22px;
+      border-radius: 100px;
+      font-weight: 600 !important;
+      transition: transform 0.2s, box-shadow 0.2s !important;
+    }
+    .nav-order:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(61,31,10,0.3) !important;
+    }
+
+    .nav-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-toggle span {
+      display: block; width: 22px; height: 2px;
+      background: var(--brown); border-radius: 2px;
+    }
+
+    /* ── HERO ────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 0;
+      padding-top: 64px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-content {
+      padding: 80px 60px 80px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--warm);
+      border: 1px solid rgba(200,150,90,0.3);
+      color: var(--sesame);
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 100px;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 5.5vw, 5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--brown);
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--tan);
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.7;
+      margin-bottom: 44px;
+    }
+
+    .hero-actions {
+      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--brown);
+      color: var(--cream);
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-weight: 600; font-size: 1rem;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(61,31,10,0.28);
+    }
+
+    .btn-ghost {
+      color: var(--brown2);
+      font-weight: 500; font-size: 0.95rem;
+      display: inline-flex; align-items: center; gap: 6px;
+      border-bottom: 2px solid var(--tan);
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--brown); }
+
+    .hero-badges {
+      display: flex; gap: 24px; margin-top: 48px; flex-wrap: wrap;
+    }
+    .hero-badge {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; color: var(--muted);
+    }
+    .hero-badge-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--tan);
+    }
+
+    .hero-visual {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-visual img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-visual::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, var(--cream) 0%, transparent 15%);
+    }
+
+    /* ── MARQUEE ─────────────────────────── */
+    .marquee-strip {
+      background: var(--brown);
+      padding: 14px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-inner {
+      display: inline-flex;
+      animation: marquee 20s linear infinite;
+    }
+    .marquee-item {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700; font-style: italic;
+      color: var(--tan2);
+      padding: 0 32px;
+    }
+    .marquee-dot {
+      color: var(--sesame);
+      font-size: 0.5rem;
+      vertical-align: middle;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── BAGELS GRID ─────────────────────── */
+    .menu {
+      padding: 100px 0;
+      background: var(--white);
+    }
+
+    .container {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--sesame);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      color: var(--brown);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 56px;
+    }
+
+    .bagels-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .bagel-card {
+      background: var(--cream);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(200,150,90,0.15);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .bagel-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(61,31,10,0.12);
+    }
+
+    .bagel-img {
+      width: 100%; height: 200px;
+      object-fit: cover;
+    }
+
+    .bagel-info {
+      padding: 20px 22px 24px;
+    }
+
+    .bagel-tag {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--sesame);
+      margin-bottom: 6px;
+    }
+
+    .bagel-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--brown);
+      margin-bottom: 6px;
+    }
+
+    .bagel-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── ABOUT ───────────────────────────── */
+    .about {
+      padding: 100px 0;
+      background: var(--cream);
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-img-wrap {
+      position: relative;
+    }
+
+    .about-img {
+      width: 100%; aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: 24px;
+    }
+
+    .about-badge {
+      position: absolute;
+      bottom: -20px; right: -20px;
+      width: 120px; height: 120px;
+      background: var(--brown);
+      border-radius: 50%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 2px;
+      box-shadow: 0 8px 32px rgba(61,31,10,0.3);
+    }
+    .about-badge-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; font-weight: 900;
+      color: var(--tan2);
+      line-height: 1;
+    }
+    .about-badge-text {
+      font-size: 0.6rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+    }
+
+    .about-content { padding-right: 20px; }
+
+    .about-content p {
+      font-size: 1rem; color: var(--muted);
+      line-height: 1.8; margin-bottom: 20px;
+    }
+
+    .about-list {
+      margin-top: 36px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+
+    .about-list-item {
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+
+    .about-list-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: var(--warm);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .about-list-text strong {
+      display: block;
+      font-size: 0.9rem; font-weight: 600;
+      color: var(--brown);
+      margin-bottom: 2px;
+    }
+    .about-list-text span {
+      font-size: 0.85rem; color: var(--muted);
+    }
+
+    /* ── PROCESS ─────────────────────────── */
+    .process {
+      padding: 80px 0;
+      background: var(--brown);
+      position: relative; overflow: hidden;
+    }
+    .process::before {
+      content: "";
+      position: absolute; top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(200,150,90,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .process .section-label { color: var(--tan2); }
+    .process .section-title { color: var(--cream); }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      position: relative; z-index: 1;
+    }
+
+    .process-step { text-align: center; }
+
+    .step-num {
+      width: 56px; height: 56px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(200,150,90,0.3);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 900;
+      color: var(--tan2);
+      margin: 0 auto 16px;
+    }
+
+    .step-title {
+      font-weight: 600; font-size: 0.95rem;
+      color: var(--cream); margin-bottom: 6px;
+    }
+
+    .step-desc {
+      font-size: 0.82rem; color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+    }
+
+    /* ── ORDER ───────────────────────────── */
+    .order {
+      padding: 100px 0;
+      background: var(--white);
+    }
+
+    .order-card {
+      background: linear-gradient(135deg, var(--warm) 0%, var(--cream) 100%);
+      border-radius: 28px;
+      padding: 64px 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      border: 1px solid rgba(200,150,90,0.2);
+    }
+
+    .order-content .section-title { margin-bottom: 12px; }
+
+    .order-content p {
+      color: var(--muted); line-height: 1.7; margin-bottom: 36px;
+    }
+
+    .order-form {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 8px 40px rgba(61,31,10,0.08);
+    }
+
+    .order-form h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--brown); margin-bottom: 24px;
+    }
+
+    .form-group { margin-bottom: 16px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--brown2);
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid rgba(200,150,90,0.25);
+      border-radius: 10px;
+      font-family: inherit; font-size: 0.95rem;
+      color: var(--text);
+      background: var(--cream);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--tan);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--brown);
+      color: var(--cream);
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-family: inherit; font-size: 1rem; font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 8px;
+    }
+    .btn-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(61,31,10,0.25);
+    }
+
+    /* ── FOOTER ──────────────────────────── */
+    footer {
+      background: var(--brown);
+      padding: 48px 0 28px;
+    }
+
+    .footer-inner {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap; gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 900;
+      color: var(--cream);
+    }
+    .footer-logo span { color: var(--tan2); }
+
+    .footer-links {
+      display: flex; gap: 28px;
+    }
+    .footer-links a {
+      font-size: 0.85rem; color: rgba(255,255,255,0.45);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--tan2); }
+
+    .footer-divider {
+      height: 1px; background: rgba(255,255,255,0.06);
+      margin-bottom: 20px;
+    }
+
+    .footer-bottom {
+      font-size: 0.78rem; color: rgba(255,255,255,0.25);
+      text-align: center;
+    }
+
+    /* ── RESPONSIVE ──────────────────────── */
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-content { padding: 100px 32px 60px; text-align: center; }
+      .hero-sub { margin: 0 auto 44px; }
+      .hero-actions { justify-content: center; }
+      .hero-badges { justify-content: center; }
+      .hero-visual { height: 60vw; }
+      .hero-visual::after { background: linear-gradient(to bottom, var(--cream) 0%, transparent 20%); }
+
+      .bagels-grid { grid-template-columns: 1fr 1fr; }
+      .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      .about-badge { right: 12px; bottom: -16px; }
+      .about-content { padding-right: 0; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 24px; }
+      .order-card { grid-template-columns: 1fr; gap: 40px; padding: 40px 28px; }
+
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 64px; left: 0; right: 0;
+        background: rgba(253,246,236,0.98);
+        backdrop-filter: blur(12px);
+        padding: 20px 24px 28px;
+        gap: 18px; border-bottom: 1px solid rgba(61,31,10,0.08);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .bagels-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+
+    /* ── ANIMATIONS ──────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up:nth-child(2) { transition-delay: 0.1s; }
+    .fade-up:nth-child(3) { transition-delay: 0.2s; }
+    .fade-up:nth-child(4) { transition-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Bob's<span>Bagels</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="#menu">Menu</a>
+        <a href="#about">About</a>
+        <a href="#order">Order</a>
+        <a href="#order" class="nav-order">Order Now</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">🥯 Handcrafted Daily</div>
+      <h1>The Bagel<br>Done <em>Right.</em></h1>
+      <p class="hero-sub">
+        Kettle-boiled, hand-rolled, and baked fresh every morning.
+        Bob's been perfecting the art of the bagel so you don't have to settle for anything less.
+      </p>
+      <div class="hero-actions">
+        <a href="#order" class="btn-primary">Place an Order →</a>
+        <a href="#menu" class="btn-ghost">See the menu ↓</a>
+      </div>
+      <div class="hero-badges">
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          <span>Kettle-boiled</span>
+        </div>
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          <span>Hand-rolled</span>
+        </div>
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          <span>No shortcuts</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img
+        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=85&auto=format&fit=crop"
+        alt="Fresh bagels"
+        loading="eager"
+      >
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-inner">
+      <span class="marquee-item">Everything Bagel</span>
+      <span class="marquee-dot">●</span>
+      <span class="marquee-item">Sesame</span>
+      <span class="marquee-dot">●</span>
+      <span class="marquee-item">Plain</span>
+      <span class="marquee-dot">●</span>
+      <span class="marquee-item">Poppy Seed</span>
+      <span class="marquee-dot">●</span>
+      <span class="marquee-item">Jalapeño Cheddar</span>
+      <span class="marquee-dot">●</span>
+      <span class="marquee-item">Cinnamon Raisin</span>
+      <span class="marquee-dot">●</span>
+      <span class="marquee-item">Salt</span>
+      <span class="marquee-dot">●</span>
+      <span class="marquee-item">Onion</span>
+      <span class="marquee-dot">●</span>
+      <span class="marquee-item">Blueberry</span>
+      <span class="marquee-dot">●</span>
+      <!-- duplicate for seamless loop -->
+      <span class="marquee-item">Everything Bagel</span>
+      <span class="marquee-dot">●</span>
+      <span class="marquee-item">Sesame</span>
+      <span class="marquee-dot">●</span>
+      <span class="marquee-item">Plain</span>
+      <span class="marquee-dot">●</span>
+      <span class="marquee-item">Poppy Seed</span>
+      <span class="marquee-dot">●</span>
+      <span class="marquee-item">Jalapeño Cheddar</span>
+      <span class="marquee-dot">●</span>
+      <span class="marquee-item">Cinnamon Raisin</span>
+      <span class="marquee-dot">●</span>
+      <span class="marquee-item">Salt</span>
+      <span class="marquee-dot">●</span>
+      <span class="marquee-item">Onion</span>
+      <span class="marquee-dot">●</span>
+      <span class="marquee-item">Blueberry</span>
+      <span class="marquee-dot">●</span>
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <section class="menu" id="menu">
+    <div class="container">
+      <div class="fade-up">
+        <span class="section-label">The Menu</span>
+        <h2 class="section-title">Made fresh.<br>Every single morning.</h2>
+        <p class="section-sub">No day-old bagels here. If it's not fresh, it doesn't leave the kitchen.</p>
+      </div>
+      <div class="bagels-grid">
+        <div class="bagel-card fade-up">
+          <img class="bagel-img"
+            src="https://images.unsplash.com/photo-1509722747041-616f39b57569?w=600&q=80&auto=format&fit=crop"
+            alt="Everything Bagel">
+          <div class="bagel-info">
+            <div class="bagel-tag">Bestseller</div>
+            <div class="bagel-name">The Everything</div>
+            <div class="bagel-desc">Sesame, poppy, onion, garlic, salt — all of it. The one that started it all.</div>
+          </div>
+        </div>
+        <div class="bagel-card fade-up">
+          <img class="bagel-img"
+            src="https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?w=600&q=80&auto=format&fit=crop"
+            alt="Sesame Bagel">
+          <div class="bagel-info">
+            <div class="bagel-tag">Classic</div>
+            <div class="bagel-name">Sesame Seed</div>
+            <div class="bagel-desc">Toasted sesame on a chewy, golden crust. Simple. Perfect. No notes.</div>
+          </div>
+        </div>
+        <div class="bagel-card fade-up">
+          <img class="bagel-img"
+            src="https://images.unsplash.com/photo-1585478259715-876acc5be8eb?w=600&q=80&auto=format&fit=crop"
+            alt="Cinnamon Raisin">
+          <div class="bagel-info">
+            <div class="bagel-tag">Sweet</div>
+            <div class="bagel-name">Cinnamon Raisin</div>
+            <div class="bagel-desc">Plump raisins and warm cinnamon baked right into the dough. A morning classic.</div>
+          </div>
+        </div>
+        <div class="bagel-card fade-up">
+          <img class="bagel-img"
+            src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80&auto=format&fit=crop"
+            alt="Jalapeño Cheddar">
+          <div class="bagel-info">
+            <div class="bagel-tag">Spicy</div>
+            <div class="bagel-name">Jalapeño Cheddar</div>
+            <div class="bagel-desc">Sharp cheddar meets fresh jalapeño. Melts on the grill. Goes fast.</div>
+          </div>
+        </div>
+        <div class="bagel-card fade-up">
+          <img class="bagel-img"
+            src="https://images.unsplash.com/photo-1559598467-f8b76c8155d0?w=600&q=80&auto=format&fit=crop"
+            alt="Plain Bagel">
+          <div class="bagel-info">
+            <div class="bagel-tag">OG</div>
+            <div class="bagel-name">Plain</div>
+            <div class="bagel-desc">Bare and beautiful. The purist's choice — and the best canvas for cream cheese.</div>
+          </div>
+        </div>
+        <div class="bagel-card fade-up">
+          <img class="bagel-img"
+            src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=600&q=80&auto=format&fit=crop"
+            alt="Blueberry Bagel">
+          <div class="bagel-info">
+            <div class="bagel-tag">Fan Fave</div>
+            <div class="bagel-name">Blueberry</div>
+            <div class="bagel-desc">Real blueberries, not the fake stuff. Slightly sweet, great toasted with butter.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process">
+    <div class="container">
+      <div class="fade-up" style="margin-bottom: 56px;">
+        <span class="section-label">How It's Made</span>
+        <h2 class="section-title" style="color: var(--cream);">The old-school way.<br>Every time.</h2>
+      </div>
+      <div class="process-steps">
+        <div class="process-step fade-up">
+          <div class="step-num">1</div>
+          <div class="step-title">Mix the dough</div>
+          <div class="step-desc">High-gluten flour, malt, water. No softeners, no shortcuts. Mixed by hand.</div>
+        </div>
+        <div class="process-step fade-up">
+          <div class="step-num">2</div>
+          <div class="step-title">Hand-roll each one</div>
+          <div class="step-desc">Every bagel shaped by hand. You can tell the difference. Trust us.</div>
+        </div>
+        <div class="process-step fade-up">
+          <div class="step-num">3</div>
+          <div class="step-title">Cold ferment overnight</div>
+          <div class="step-desc">Into the fridge for 12–18 hours. Slow fermentation = that chewy, complex flavor.</div>
+        </div>
+        <div class="process-step fade-up">
+          <div class="step-num">4</div>
+          <div class="step-title">Kettle boil & bake</div>
+          <div class="step-desc">Boiled in honey-malt water, then straight into a hot oven. That crust? That's why.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-img-wrap fade-up">
+          <img class="about-img"
+            src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80&auto=format&fit=crop"
+            alt="Bob in the kitchen">
+          <div class="about-badge">
+            <div class="about-badge-num">12+</div>
+            <div class="about-badge-text">Years of<br>Bagels</div>
+          </div>
+        </div>
+        <div class="about-content fade-up">
+          <span class="section-label">About Bob</span>
+          <h2 class="section-title">He's been doing this a while.</h2>
+          <p>Bob didn't set out to make the best bagels in Chicago. He just couldn't find one he liked, so he learned to make them himself. That was twelve years ago.</p>
+          <p>What started as a Saturday morning thing for friends turned into a farmers market stand, which turned into this. Still hand-rolled. Still kettle-boiled. Still no shortcuts.</p>
+          <div class="about-list">
+            <div class="about-list-item">
+              <div class="about-list-icon">🌾</div>
+              <div class="about-list-text">
+                <strong>Local ingredients</strong>
+                <span>Flour from a regional mill. Honey from Illinois farms. Toppings sourced nearby.</span>
+              </div>
+            </div>
+            <div class="about-list-item">
+              <div class="about-list-icon">🕓</div>
+              <div class="about-list-text">
+                <strong>Baked at 4am</strong>
+                <span>By the time you're ordering, they're already fresh out of the oven.</span>
+              </div>
+            </div>
+            <div class="about-list-item">
+              <div class="about-list-icon">🥯</div>
+              <div class="about-list-text">
+                <strong>Small batches only</strong>
+                <span>When they're gone, they're gone. Order ahead if you want to be safe.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDER -->
+  <section class="order" id="order">
+    <div class="container">
+      <div class="order-card fade-up">
+        <div class="order-content">
+          <span class="section-label">Place an Order</span>
+          <h2 class="section-title">Ready when you are.</h2>
+          <p>Order ahead and pick up fresh. Bob bakes in small batches so ordering early means you get exactly what you want.</p>
+          <div class="about-list">
+            <div class="about-list-item">
+              <div class="about-list-icon" style="background: var(--white);">📍</div>
+              <div class="about-list-text">
+                <strong>Pickup location</strong>
+                <span>Address shared after order confirmed</span>
+              </div>
+            </div>
+            <div class="about-list-item">
+              <div class="about-list-icon" style="background: var(--white);">⏰</div>
+              <div class="about-list-text">
+                <strong>Pickup window</strong>
+                <span>Weekends 7–11am. Order by Friday 6pm.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="order-form">
+          <h3>Weekend Order Form</h3>
+          <div class="form-group">
+            <label>Your name</label>
+            <input type="text" placeholder="First and last name">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="you@email.com">
+          </div>
+          <div class="form-group">
+            <label>Bagel varieties (and quantity)</label>
+            <textarea placeholder="e.g. 3 everything, 2 sesame, 1 jalapeño cheddar..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Pickup date</label>
+            <input type="date">
+          </div>
+          <button class="btn-submit" type="submit">Send Order Request →</button>
+          <p style="font-size:0.75rem; color: var(--muted); margin-top: 12px; text-align: center;">
+            Bob will confirm via email within a few hours.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">Bob's<span>Bagels</span></div>
+        <div class="footer-links">
+          <a href="#menu">Menu</a>
+          <a href="#about">About</a>
+          <a href="#order">Order</a>
+        </div>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-bottom">
+        © 2026 Bob's Bagels · Handcrafted in Chicago · No day-olds. Ever.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll shadow
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // Mobile nav
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
